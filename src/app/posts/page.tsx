@@ -6,6 +6,7 @@ async function page() {
   //fetch data
   //normally fetch() is not used, you directly access your db
   //no need to use useEffect like react and vite app
+  await new Promise((resolve) => setTimeout(resolve, 3000))
   const res = await fetch("https://dummyjson.com/posts?limit=10");
   const data = await res.json();
 

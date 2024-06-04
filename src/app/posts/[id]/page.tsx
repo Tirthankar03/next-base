@@ -1,6 +1,6 @@
 import React from 'react'
 
-async function page({params}: {id: string} ) {
+ async function Page({ params }: { params: { id: string } }) {
     const res = await fetch(`https://dummyjson.com/posts/${params.id}`);
     const post = await res.json();
   return (
@@ -11,4 +11,4 @@ async function page({params}: {id: string} ) {
   )
 }
 
-export default page
+export default Page
