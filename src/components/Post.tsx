@@ -1,10 +1,21 @@
 import React from "react";
 import UpvoteBtn from "./UpvoteBtn";
+import prisma from "@/lib/db";
+import { notFound } from "next/navigation";
 
 export default async function Post({id}: {id: string}) {
     await new Promise((resolve) => setTimeout(resolve, 1000))
-    const res = await fetch(`https://dummyjson.com/posts/${id}`);
-    const post = await res.json();
+    // const res = await fetch(`https://dummyjson.com/posts/${id}`);
+    // const post = await res.json();
+
+    const post = await prisma.post.findUnique({
+      where: {
+        id: parseInt(id),
+      },
+    });
+    if (!post) {
+      notFound();
+    }
 
     //beginners will be very tempted to use 'use client' but you'll lose all the features of server comp
       //can't keep large dependencies on the server 
