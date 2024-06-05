@@ -5,6 +5,7 @@ import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 import { redirect } from 'next/navigation';
 
 export default async function page() {
+  //using auth in individual page looks messy, use middleware
   const {isAuthenticated} = getKindeServerSession()
 
   if (!(await isAuthenticated())) {
@@ -20,10 +21,12 @@ export default async function page() {
         //action newly used
         //createPost is a function that would only run in the server (server action)
         // onSubmit={() => {fetch('/api/posts')} } old way of doing things
-        className='h-10 space-x-2 mt-10'>
-            <input className='border rounded-full px-3 mx-3 h-full' type="text" name='title' placeholder='title for new post' required />
-            <button className='h-full bg-blue-500 px-5 rounded text-white'>Submit</button>
+        className='flex flex-col max-w-[400px] mx-auto gap-2 my-10'>
+            <input className='border rounded-full px-3 h-10' type="text" name='title' placeholder='title for new post' required />
+            <textarea name='body' placeholder='body content for post' className='border  rounded px-3 py-2' rows={10} required/>
+            <button className='h-10 bg-blue-500 px-5 rounded text-white'>Submit</button>
         </form>
+        <LogoutLink>Logout</LogoutLink>
     </main>
   )
 }
